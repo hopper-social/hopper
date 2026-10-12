@@ -2,15 +2,15 @@
 
 # Hopper for Android
 
-**Nearby conversations. Places beyond them.** Find people around you and exchange supported messages over Bluetooth when compatible phones are reachable, even without internet. Go online to explore area conversations, a social feed, profiles, and media.
+**Meet nearby. Explore anywhere. Share more than text.** Hopper brings Bluetooth mesh conversations, online places and a media-rich feed into one Android app. Nearby text can work without internet when compatible peers are reachable; places and the global feed use internet-backed relays.
 
 > **October 12 alpha prerelease available.** Download the signed universal APK and its checksum from the [official v0.3.5-alpha.1 release](https://github.com/hopper-social/hopper/releases/tag/v0.3.5-alpha.1-20261012). This is Hopper's download repository, not the Android source repository. The screens below are development captures and are not proof that they came from the signed public APK. Do not install APKs offered elsewhere.
 
-## One app, more ways to connect
+## Why Hopper
 
-- **Around you:** Discover compatible phones and explore available groups. Supported Bluetooth mesh conversations can work without mobile data or Wi-Fi when peers are reachable; group discovery and delivery depend on the connection.
+- **Around you:** Discover compatible phones and explore available groups. Supported Bluetooth mesh text can work without mobile data or Wi-Fi when peers are reachable; group discovery and delivery depend on the connection.
 - **In a place:** Spin the globe to choose an area, then explore its conversations and notes through internet-backed relays. You can choose where to look without claiming to be there.
-- **Beyond chat:** Browse the online feed, profiles, photos, Reels, and music. The people and places you find nearby sit alongside a wider social experience.
+- **Beyond chat:** Browse the online feed, profiles, photos, Reels, and music. Nearby reel sharing can try Wi-Fi Direct and fall back to Bluetooth when both phones support the flow; neither path guarantees delivery.
 
 ## A look inside
 
