@@ -8,7 +8,7 @@ Nearby conversations, place-based discovery, and a social feed in one Android ap
 
 ## Inside Hopper
 
-These are captures of an installed **v0.3.5-alpha.1 Hacker development build**, not previews of an approved public APK. They show UI affordances, not verified end-to-end delivery. The named areas and discovery counts are what appeared on the capturing phone, not your location or a promise of nearby peers.
+Screenshots show the installed **v0.3.5-alpha.1 Hacker development build**. They preview the interface, not an approved public APK or verified end-to-end delivery. Named areas and discovery counts reflect one example session; results vary by device, location, permissions, and available peers.
 
 | Nearby | Find a group |
 | :---: | :---: |
@@ -20,7 +20,13 @@ These are captures of an installed **v0.3.5-alpha.1 Hacker development build**, 
 | <img src="assets/screens/choose-an-area.png" width="280" alt="Globe area picker with spin, zoom, focus, detail settings, and Select button" /> | <img src="assets/screens/appearance-and-safety.png" width="280" alt="Settings showing system light and dark appearance, color swatches, language, haptics, SOS off, background operation off, and real location source" /> |
 | Spin and zoom the globe, choose a detail level, then select a geographic area. The highlighted region is approximately **5,000 km** wide in this capture, not a precise position. | Choose system, light, or dark appearance and an accent color; adjust language and haptics. The screen also shows the SOS gesture switched **off**, a background option, and the location source. The screenshot does not prove emergency delivery. |
 
-Other captures from this alpha show a **For you / Global** feed with posts and reaction controls, a **profile** with Reels, Uploads, People, Music, and Saved tabs, a **music** library with playlists, and a **place chat** composer. We have not republished those captures: several include third-party media, identifiable people, or conversation content. Visible tabs and controls describe the interface; availability, media rights, connectivity, and message delivery depend on the actual build and environment.
+## More to explore
+
+The alpha interface also includes a **For you / Global** feed with post interactions, a **profile** with Reels, Uploads, People, Music, and Saved tabs, a **music** library with playlists, and a **place chat** composer. Availability and content depend on the build and connectivity; public or third-party media remains subject to its respective rights and retention policies.
+
+## Hopper and Bitchat
+
+Hopper builds on the nearby-first ideas of [Bitchat](https://github.com/permissionlesstech/bitchat) with Bluetooth mesh messaging and Noise-protected private sessions. Hopper adds a Nostr-backed social layer for places, feed, media, and profiles. On supported Android devices, Wi-Fi Direct can carry nearby reel transfers; Bluetooth remains the mesh messaging transport. The upstream Bitchat project and its [Android app](https://github.com/permissionlesstech/bitchat-android) are separate: Hopper is **not its official Android app**, and other Bitchat variants are not Hopper releases. Install Hopper only from this repository's approved releases when they become available.
 
 ## What to expect
 
