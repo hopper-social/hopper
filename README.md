@@ -2,16 +2,16 @@
 
 # Hopper for Android
 
-**Nearby chat, nearby reels, and a wider social world.** Hopper pairs Bluetooth mesh conversations with phone-to-phone reel transfer over Wi-Fi Direct when supported. Nearby sharing can work without internet between compatible peers; places and the global feed still need internet-backed relays.
+**Nearby chat, nearby reels, and a wider social world.** Hopper pairs Bluetooth mesh conversations with phone-to-phone reel transfer over Wi-Fi Direct when supported. Nearby reel sharing can work without internet between compatible peers; places and the global feed still need internet-backed relays.
 
-> **October 12 alpha prerelease available.** Download the signed universal APK and its checksum from the [official v0.3.5-alpha.1 release](https://github.com/hopper-social/hopper/releases/tag/v0.3.5-alpha.1-20261012). This is Hopper's download repository, not the Android source repository. The screens below are development captures and are not proof that they came from the signed public APK. Do not install APKs offered elsewhere.
+> **Alpha prerelease: v0.3.5-alpha.1 (Oct 12).** [Download the signed APK + checksum](https://github.com/hopper-social/hopper/releases/tag/v0.3.5-alpha.1-20261012). This repo hosts downloads only; Hopper's Android source is not public. Don't install APKs from anywhere else.
 
 <img src="assets/screens/nearby-home.png" width="320" alt="Hopper Nearby home with group, notes, and area actions" />
 
 ## Why Hopper
 
 - **Talk nearby:** Discover compatible phones and explore available groups. Supported Bluetooth mesh text can work without mobile data or Wi-Fi when peers are reachable; delivery depends on the connection.
-- **Share reels phone to phone:** Between compatible connected peers, Hopper can offer a reel over the private session, transfer its bytes locally via Wi-Fi Direct, and verify the received file. Bluetooth pieces are a fallback when Wi-Fi Direct fails; neither path guarantees delivery. This is nearby media sharing, not an offline global feed.
+- **Share reels phone to phone:** No internet needed between compatible nearby peers. Hopper offers a reel over the private session, sends it via Wi-Fi Direct when available (Bluetooth pieces as fallback), and checks size and SHA-256 on arrival. Delivery isn't guaranteed; see [Honest limits](#honest-limits).
 - **Explore beyond range:** Spin the globe to choose an area and browse its conversations and notes, plus an online feed, profiles, photos, Reels, and music. These wider experiences depend on internet-backed relays; choosing an area does not claim you are there.
 
 ## How nearby sharing fits together
@@ -29,7 +29,7 @@ flowchart LR
     I[Internet connection] --> J[Places, notes and global feed]
 ```
 
-The reel offer uses a Noise-protected control message over an available peer transport; the Wi-Fi Direct file bytes use a separate local HTTP path, not a demonstrated Noise-encrypted payload channel. The receiver verifies file size and hash. An available transport is not a delivery guarantee.
+The reel offer, including the download token, travels in a Noise-protected control message over an available peer transport. The Wi-Fi Direct server then serves the reel's bytes as plaintext over local HTTP; Noise does **not** encrypt that file payload end to end. The receiver checks file size and SHA-256, which do not provide confidentiality. An available transport is not a delivery guarantee.
 
 ## Hopper and Bitchat
 
@@ -38,6 +38,7 @@ The reel offer uses a Noise-protected control message over an available peer tra
 | Nearby | Bluetooth mesh conversations plus phone-to-phone reel bytes over Wi-Fi Direct when available, with Bluetooth fallback: nearby sharing beyond text | Bluetooth mesh messaging and multi-hop relay; its published feature list centers nearby messaging |
 | Online | Place conversations and notes, profiles, photos, Reels and a feed | Nostr-backed global messaging and location channels |
 | Focus | Nearby discovery alongside a broader social and media experience | Messaging across nearby mesh and internet relays |
+| Maturity | Source not public; alpha APK download; not on Google Play, with no linked protocol whitepaper here | Public [Bitchat source](https://github.com/permissionlesstech/bitchat), [App Store](https://apps.apple.com/us/app/bitchat-mesh/id6748219622) and [Play Store](https://play.google.com/store/apps/details?id=com.bitchat.droid) links, plus a [technical whitepaper](https://github.com/permissionlesstech/bitchat/blob/main/WHITEPAPER.md) |
 
 These are different product emphases, **not** a speed, range, reliability or security ranking. Both support nearby communication and internet-backed experiences. Hopper is **not** the official Bitchat app; no general Bitchat interoperability is promised.
 
@@ -91,7 +92,7 @@ Hopper builds on the nearby-first approach of [Bitchat](https://github.com/permi
 
 - **Nearby messaging** needs compatible phones in range, Bluetooth, and the required permissions. Obstacles and available peers affect delivery; a "Sent" label does not confirm receipt. Hopper is an **alpha**, not an emergency service.
 - **Places, notes, and the feed** need internet access and external relays. Choosing an area can reveal what places interest you, and optional location lookups may disclose more precise location data to external services. Public posts and media can be copied or retained elsewhere.
-- **Nearby reels** need compatible, connected peers and supported devices. Wi-Fi Direct requires Android 10 or newer and the required permissions; the fallback can use Bluetooth but may fail. The protocol caps each reel at 256 MiB. The local Wi-Fi Direct HTTP payload is not established as end-to-end encrypted by Noise; a token limits access and a hash checks integrity. Do not assume nearby reel delivery or confidentiality in every environment.
+- **Nearby reels** need compatible, connected peers and supported devices. Wi-Fi Direct requires Android 10 or newer and the required permissions; the fallback can use Bluetooth but may fail. The protocol caps each reel at 256 MiB. Wi-Fi Direct serves the reel file as plaintext over local HTTP, not end-to-end encrypted by Noise. A token restricts the download URL and a hash checks the received file; neither encrypts the payload. Do not assume nearby reel delivery or end-to-end confidentiality.
 
 Nearby access does not require a phone number. Read the [privacy information](https://hopper-social.github.io/hopper-legal-pages/privacy.html) and [account-data deletion limits](https://hopper-social.github.io/hopper-legal-pages/deletion.html) before sharing sensitive content.
 
