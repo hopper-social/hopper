@@ -1,3 +1,5 @@
+<img src="assets/hopper-icon.png" width="72" alt="Hopper app icon" />
+
 # Hopper for Android
 
 Nearby conversations when the internet is out of reach; places and a social feed when you are connected. Hopper is an **alpha** Android app, not an emergency communication service.
