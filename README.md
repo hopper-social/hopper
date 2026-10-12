@@ -6,13 +6,45 @@
 
 > **October 12 alpha prerelease available.** Download the signed universal APK and its checksum from the [official v0.3.5-alpha.1 release](https://github.com/hopper-social/hopper/releases/tag/v0.3.5-alpha.1-20261012). This is Hopper's download repository, not the Android source repository. The screens below are development captures and are not proof that they came from the signed public APK. Do not install APKs offered elsewhere.
 
+<img src="assets/screens/nearby-home.png" width="320" alt="Hopper Nearby home with group, notes, and area actions" />
+
 ## Why Hopper
 
 - **Around you:** Discover compatible phones and explore available groups. Supported Bluetooth mesh text can work without mobile data or Wi-Fi when peers are reachable; group discovery and delivery depend on the connection.
 - **In a place:** Spin the globe to choose an area, then explore its conversations and notes through internet-backed relays. You can choose where to look without claiming to be there.
 - **Beyond chat:** Browse the online feed, profiles, photos, Reels, and music. Nearby reel sharing can try Wi-Fi Direct and fall back to Bluetooth when both phones support the flow; neither path guarantees delivery.
 
+## How nearby sharing fits together
+
+```mermaid
+flowchart LR
+    A[Compatible nearby peers] --> B[Bluetooth mesh conversations]
+    A --> C[Established private session]
+    C --> D[Nearby reel offer]
+    D --> E{Wi-Fi Direct available?}
+    E -->|Yes| F[Local HTTP file transfer]
+    E -->|No or failed| G[Bluetooth file pieces]
+    F --> H[Check size and SHA-256]
+    G --> H
+    I[Internet connection] --> J[Places, notes and global feed]
+```
+
+The reel offer uses a Noise-protected control message over an available peer transport; the Wi-Fi Direct file bytes use a separate local HTTP path, not a demonstrated Noise-encrypted payload channel. The receiver verifies file size and hash. An available transport is not a delivery guarantee.
+
+## Hopper and Bitchat
+
+| | Hopper for Android | [Bitchat](https://github.com/permissionlesstech/bitchat#features) |
+| --- | --- | --- |
+| Nearby | Bluetooth mesh conversations; optional nearby reel transfers via Wi-Fi Direct with Bluetooth fallback | Bluetooth mesh messaging and multi-hop relay |
+| Online | Place conversations and notes, profiles, photos, Reels and a feed | Nostr-backed global messaging and location channels |
+| Focus | Nearby discovery alongside a broader social and media experience | Messaging across nearby mesh and internet relays |
+
+These are different product emphases, **not** a speed, range, reliability or security ranking. Both support nearby communication and internet-backed experiences. Hopper is **not** the official Bitchat app; no general Bitchat interoperability is promised.
+
 ## A look inside
+
+<details>
+<summary>See all 14 development captures</summary>
 
 All 14 supplied phone captures are shown below. These are **edited v0.3.5-alpha.1 development captures**, not verified screenshots of the signed public APK or proof of message delivery. System bars were cropped; private conversations, posts, build details, and third-party media previews were covered before publication. Blank labeled regions are redactions, not empty app states. Places and discovery counts reflect one session, not current network availability.
 
@@ -51,15 +83,15 @@ All 14 supplied phone captures are shown below. These are **edited v0.3.5-alpha.
 | <img src="assets/screens/appearance-and-safety.png" width="280" alt="Settings with appearance swatches, language, haptics, SOS off, and location source" /> | <img src="assets/screens/reels-and-storage-settings.png" width="280" alt="Settings with nearby Reel and publishing toggles, backup, and data management; device build details hidden" /> |
 | Choose appearance and safety options. | Control media, storage, and sharing options. |
 
-## About Hopper and Bitchat
+</details>
 
-Hopper extends the nearby-first approach of [Bitchat](https://github.com/permissionlesstech/bitchat) with an Android social experience built around places, a feed, media, and profiles. Private mesh sessions use the [Noise Protocol](https://noiseprotocol.org). Hopper is a separate project, **not** the official Bitchat app; Bitchat releases are not Hopper downloads.
+Hopper builds on the nearby-first approach of [Bitchat](https://github.com/permissionlesstech/bitchat) and uses the [Noise Protocol](https://noiseprotocol.org) for private mesh sessions. Thanks to the Bitchat and Noise communities. Bitchat releases are not Hopper downloads.
 
-## Where it works
+## Honest limits
 
 - **Nearby messaging** needs compatible phones in range, Bluetooth, and the required permissions. Obstacles and available peers affect delivery; a "Sent" label does not confirm receipt. Hopper is an **alpha**, not an emergency service.
 - **Places, notes, and the feed** need internet access and external relays. Choosing an area can reveal what places interest you, and optional location lookups may disclose more precise location data to external services. Public posts and media can be copied or retained elsewhere.
-- **Nearby reels** may use Wi-Fi Direct on supported devices. That is a separate transfer path from Bluetooth mesh messages; it is not a promise of offline media delivery.
+- **Nearby reels** need compatible, connected peers and supported devices. Wi-Fi Direct requires Android 10 or newer and the required permissions; the fallback can use Bluetooth but may fail. The protocol caps each reel at 256 MiB. The local Wi-Fi Direct HTTP payload is not established as end-to-end encrypted by Noise; a token limits access and a hash checks integrity. Do not assume nearby reel delivery or confidentiality in every environment.
 
 Nearby access does not require a phone number. Read the [privacy information](https://hopper-social.github.io/hopper-legal-pages/privacy.html) and [account-data deletion limits](https://hopper-social.github.io/hopper-legal-pages/deletion.html) before sharing sensitive content.
 
